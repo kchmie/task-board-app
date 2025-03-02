@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Button, TextInput } from './views/ui-components'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -6,9 +7,10 @@ function App() {
   return (
     <div className='h-screen items-center justify-center flex flex-col gap-3'>
       <p className='text-xl'>Vite + React + Tailwind + Electron</p>
-      <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow cursor-pointer" onClick={() => setCount((count) => count + 1)}>
+      <Button onClick={() => setCount((count) => count + 1)} className="bg-slate-200 ">
         Count is {count}
-      </button>
+      </Button>
+      <TextInput />
     </div>
   )
 }
