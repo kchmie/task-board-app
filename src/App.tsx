@@ -1,18 +1,19 @@
-import { useState } from 'react'
-import { Button, TextInput } from './views/ui-components'
+
+import { HashRouter, Route, Routes } from 'react-router'
+import { Home } from './views/Home'
+import { AccountSelection } from './views/AccountSelection'
 
 function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <div className='h-screen items-center justify-center flex flex-col gap-3'>
-      <p className='text-xl'>Vite + React + Tailwind + Electron</p>
-      <Button onClick={() => setCount((count) => count + 1)} className="bg-slate-200 ">
-        Count is {count}
-      </Button>
-      <TextInput />
-    </div>
-  )
+    return (
+        <HashRouter>
+            <Routes>
+                <Route path="/home" element={<Home />} />
+                <Route path="/" element={<AccountSelection />} />
+            </Routes>
+        </HashRouter>
+
+    )
 }
 
 export default App

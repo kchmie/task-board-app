@@ -7,13 +7,14 @@ const createWindow = () => {
     center: true
   })
 
-  if(process.argv[2] == "dev") 
+  if (process.argv[2] == "dev") {
     mainWindow.loadURL("http://localhost:5173/")
-  else {
+    mainWindow.webContents.on("did-fail-load", function () { mainWindow.loadURL("http://localhost:5173/") })
+  } else {
     mainWindow.loadFile('./dist/index.html')
     mainWindow.setMenuBarVisibility(false)
   }
-    
+
 }
 
 app.whenReady().then(() => {
