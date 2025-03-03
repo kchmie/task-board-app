@@ -4,7 +4,6 @@ import { Home } from './views/Home'
 import { AccountSelection } from './views/AccountSelection'
 
 function App() {
-
     return (
         <HashRouter>
             <Routes>

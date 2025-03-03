@@ -1,19 +1,23 @@
 import { Link } from "react-router";
-import { CenterPanel } from "./ui-components";
-import { AccountAvatarBig } from "./ui-components/AccountAvatarBig";
-import { useTestStore } from "../TestStore";
+import { CenterPanel, AccountAvatarBig } from "./ui-components";
+import { useAppStore } from "../AppStore";
+import UserProfile from "../controllers/UserProfile";
 
 export function AccountSelection() {
-    const zustandText = useTestStore((state) => state.test)
+    const {userProfiles, addProfile} = useAppStore()
+
+    const addProfiles = () => {
+        addProfile(new UserProfile("John Doe", "Test"))
+    }
 
     return (
         <CenterPanel>
-            <div id="tooltip-default" role="tooltip" className="tooltip invisible">xdxd</div>
             <p className="text-3xl m-5">Wybierz użytkownika:</p>
-            <p>Zustand test: {zustandText}</p>
-            <div className="flex w-4/8 gap-5 justify-center flex-wrap">
-                <Link to="/home" data-tooltip-target="tooltip-default"><AccountAvatarBig name="Użytkownik Testowy" /></Link>
-                <AccountAvatarBig add />
+            <div className="flex mx-5 lg:w-6/8 gap-5 justify-center flex-wrap">
+                {userProfiles.map((profile, i) => {
+                    return <Link key={i} to="/home"><AccountAvatarBig name={profile.profileName} /></Link>
+                })}
+                <AccountAvatarBig add onClick={addProfiles}/>
             </div>
         </CenterPanel>
     )
