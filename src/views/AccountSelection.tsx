@@ -1,13 +1,17 @@
 import { Link } from "react-router";
-import { CenterPanel, AccountAvatarBig } from "./ui-components";
+import { CenterPanel, AccountAvatarBig, Button } from "./ui-components";
 import { useAppStore } from "../AppStore";
 import UserProfile from "../controllers/UserProfile";
 
 export function AccountSelection() {
-    const {userProfiles, addProfile} = useAppStore()
+    const {userProfiles, addProfile, removeProfile} = useAppStore()
 
     const addProfiles = () => {
-        addProfile(new UserProfile("John Doe", "Test"))
+        addProfile(new UserProfile(`${(Math.random() + 1).toString(36).substring(7)} ${(Math.random() + 1).toString(36).substring(7)}`, "Test"))
+    }
+
+    const removeLastProfile = () => {
+        removeProfile(userProfiles[userProfiles.length-1])
     }
 
     return (
@@ -19,6 +23,7 @@ export function AccountSelection() {
                 })}
                 <AccountAvatarBig add onClick={addProfiles}/>
             </div>
+            <Button onClick={removeLastProfile}>Usuń ostatni profil</Button>
         </CenterPanel>
     )
 }

@@ -8,9 +8,9 @@ export default class Serializable {
         return obj;
     }
 
-    static fromJSON(this: new (...args: any[]) => Object, obj: any) {
+    static fromJSON<T>(this: new (...args: any[]) => Object, obj: any) {
         const instance = new this(...Object.values(obj))
         Object.assign(instance, obj);
-        return instance;
+        return instance as T;
     }
 }
