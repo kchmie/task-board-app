@@ -1,11 +1,11 @@
 
 import { Link } from "react-router";
 import { Button, CenterPanel, TextInput } from "./ui-components";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { syncProfileLocalStorage, useAppStore } from "../AppStore";
 
 export function Home() {
-    const {activeProfile, userProfiles, setActiveProfileInputText} = useAppStore()
+    const { activeProfile, userProfiles, setActiveProfileInputText, setActiveProfile } = useAppStore()
     const testInput = useRef<HTMLInputElement>(null)
 
     useEffect(() => {
@@ -23,7 +23,7 @@ export function Home() {
                 <Button onClick={() => { setActiveProfileInputText(testInput.current?.value || "") }}>Zapisz</Button>
             </div>
 
-            <Link to="/"><Button>Wróć do wyboru użytkownika</Button></Link>
+            <Link to="/" onClick={() => { setActiveProfile(null) }}><Button>Wróć do wyboru użytkownika</Button></Link>
         </CenterPanel>
     )
 }

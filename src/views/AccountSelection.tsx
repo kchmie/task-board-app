@@ -4,14 +4,14 @@ import { useAppStore } from "../AppStore";
 import UserProfile from "../controllers/UserProfile";
 
 export function AccountSelection() {
-    const {userProfiles, addProfile, removeProfile, setActiveProfile} = useAppStore()
+    const { userProfiles, addProfile, removeProfile, setActiveProfile } = useAppStore()
 
     const addProfiles = () => {
         addProfile(new UserProfile(`${(Math.random() + 1).toString(36).substring(7)} ${(Math.random() + 1).toString(36).substring(7)}`, "Test"))
     }
 
     const removeLastProfile = () => {
-        removeProfile(userProfiles[userProfiles.length-1])
+        removeProfile(userProfiles[userProfiles.length - 1])
     }
 
     return (
@@ -19,9 +19,9 @@ export function AccountSelection() {
             <p className="text-3xl m-5">Wybierz użytkownika:</p>
             <div className="flex mx-5 lg:w-6/8 gap-5 justify-center flex-wrap">
                 {userProfiles.map((profile, i) => {
-                    return <Link key={i} to="/home" onClick={() => {setActiveProfile(profile)}}><AccountAvatarBig name={profile.profileName} /></Link>
+                    return <Link key={i} to="/home" onClick={() => { setActiveProfile(profile) }}><AccountAvatarBig name={profile.profileName} /></Link>
                 })}
-                <AccountAvatarBig add onClick={addProfiles}/>
+                <AccountAvatarBig add onClick={addProfiles} />
             </div>
             <Button onClick={removeLastProfile}>Usuń ostatni profil</Button>
         </CenterPanel>
