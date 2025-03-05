@@ -7,20 +7,16 @@ export const useAppStore = create<IAppState>()((set, get) => ({
         set((state) => ({
             userProfiles: [...state.userProfiles, profile]
         }))
-        if (save) afterAddProfile(get)
+        if (save) syncProfileLocalStorage(get)
     },
     removeProfile: (profile) => {
         set((state) => ({
             userProfiles: state.userProfiles.filter((userProfile) => userProfile != profile)
         }))
-        afterRemoveProfile(get)
+        syncProfileLocalStorage(get)
     }
 }))
 
-const afterAddProfile = (get: () => IAppState) => {
+const syncProfileLocalStorage = (get: () => IAppState) => {
     localStorage.setItem("userProfiles", JSON.stringify(get().userProfiles))
 };
-
-const afterRemoveProfile = (get: () => IAppState) => {
-    localStorage.setItem("userProfiles", JSON.stringify(get().userProfiles))
-}
