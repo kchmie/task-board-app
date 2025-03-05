@@ -12,4 +12,7 @@ export default class UserProfile extends Serializable implements IUserProfile {
         this.inputText = inputText
     }
 
+    setInputText(text: string) {
+        this.inputText = text
+    }
 }
