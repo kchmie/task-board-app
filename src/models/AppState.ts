@@ -7,5 +7,5 @@ export default interface IAppState {
     addProfile: (profile: UserProfile, save?: Boolean) => void
     removeProfile: (profile: UserProfile) => void
     setActiveProfile: (profile: UserProfile | null) => void
-    setActiveProfileInputText: (text: string) => void
+    updateActiveProfile: (profile: UserProfile) => void
 }

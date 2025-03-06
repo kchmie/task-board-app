@@ -12,7 +12,8 @@ export default class UserProfile extends Serializable implements IUserProfile {
         this.inputText = inputText
     }
 
-    setInputText(text: string) {
+    setInputText(text: string) : UserProfile {
         this.inputText = text
+        return this
     }
 }

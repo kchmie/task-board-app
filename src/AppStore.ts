@@ -22,11 +22,10 @@ export const useAppStore = create<IAppState>()((set, get) => ({
             activeProfile: profile
         }))
     },
-    setActiveProfileInputText: (text: string) =>
-        set((state) => {
-            state.activeProfile?.setInputText(text)
-            return {activeProfile: state.activeProfile}
-        })
+    updateActiveProfile: (profile: UserProfile) =>
+        set((_) => ({
+            activeProfile: profile
+        }))
 }))
 
 export const syncProfileLocalStorage = (userProfiles: UserProfile[]) => {

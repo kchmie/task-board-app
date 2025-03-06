@@ -5,6 +5,7 @@ import { AccountSelection } from './views/AccountSelection'
 import { useAppStore } from './AppStore'
 import { useEffect } from 'react'
 import UserProfile from './controllers/UserProfile'
+import { EnsureActiveProfile } from './views/middleware/EnsureActiveProfile'
 
 function App() {
     const { addProfile } = useAppStore()
@@ -19,7 +20,10 @@ function App() {
     return (
         <HashRouter>
             <Routes>
-                <Route path="/home" element={<Home />} />
+                {/* Middleware to ensure the user has chosen a profile */}
+                <Route element={<EnsureActiveProfile />}>
+                    <Route path="/home" element={<Home />} />
+                </Route>
                 <Route path="/" element={<AccountSelection />} />
             </Routes>
         </HashRouter>
