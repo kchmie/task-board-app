@@ -23,7 +23,7 @@ export function Home() {
                 <Button onClick={() => { updateActiveProfile(activeProfile!.setInputText(testInput.current?.value || "")) }}>Zapisz</Button>
             </div>
 
-            <Link to="/" onClick={() => { setActiveProfile(null) }}><Button>Wróć do wyboru użytkownika</Button></Link>
+            <Link to="/" onClick={() => { setActiveProfile(null) }}><Button>Wróć do wyboru profilu</Button></Link>
         </CenterPanel>
     )
 }

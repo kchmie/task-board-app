@@ -1,5 +1,5 @@
 
-export function AccountAvatarBig(props: any) {
+export function ProfileAvatarBig(props: any) {
     const initials = props.add ? "" : (props.name as string).split(" ").map(word => word[0]?.toUpperCase()).join("")
 
     return (

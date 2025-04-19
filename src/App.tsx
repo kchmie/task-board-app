@@ -1,11 +1,12 @@
 
 import { HashRouter, Route, Routes } from 'react-router'
 import { Home } from './views/Home'
-import { AccountSelection } from './views/AccountSelection'
+import { ProfileSelection } from './views/ProfileSelection'
 import { useAppStore } from './AppStore'
 import { useEffect } from 'react'
 import UserProfile from './controllers/UserProfile'
 import { EnsureActiveProfile } from './views/middleware/EnsureActiveProfile'
+import { ProfileCreation } from './views/ProfileCreation'
 
 function App() {
     const { addProfile } = useAppStore()
@@ -24,7 +25,8 @@ function App() {
                 <Route element={<EnsureActiveProfile />}>
                     <Route path="/home" element={<Home />} />
                 </Route>
-                <Route path="/" element={<AccountSelection />} />
+                <Route path="/" element={<ProfileSelection />} />
+                <Route path="/createprofile" element={<ProfileCreation />} />
             </Routes>
         </HashRouter>
 
