@@ -1,7 +1,7 @@
 
 import { Link } from "react-router";
 import { Button, CenterPanel, TextInput } from "./ui-components";
-import { act, useRef } from "react";
+import { useRef } from "react";
 import { useAppStore } from "../AppStore";
 import Task from "../controllers/Task";
 
