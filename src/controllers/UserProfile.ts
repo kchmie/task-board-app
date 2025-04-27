@@ -4,20 +4,13 @@ import Task from "./Task";
 
 export default class UserProfile extends Serializable implements IUserProfile {
     profileName: string;
-    inputText: string;
     tasks: Task[];
 
-    constructor(profileName: string, inputText: string) {
+    constructor(profileName: string) {
         super()
 
         this.profileName = profileName
-        this.inputText = inputText
         this.tasks = []
-    }
-
-    setInputText(text: string) : UserProfile {
-        this.inputText = text
-        return this
     }
 
     addTask(task: Task) : UserProfile {

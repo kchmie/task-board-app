@@ -16,7 +16,7 @@ export function ProfileCreation() {
             setErrorMessage("Nazwa profilu nie może być pusta")
             return
         }
-        addProfile(new UserProfile(profileName, ""))
+        addProfile(new UserProfile(profileName))
     }
 
     return (

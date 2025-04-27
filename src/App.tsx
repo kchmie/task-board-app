@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 import UserProfile from './controllers/UserProfile'
 import { EnsureActiveProfile } from './views/middleware/EnsureActiveProfile'
 import { ProfileCreation } from './views/ProfileCreation'
+import Task from './controllers/Task'
 
 function App() {
     const { addProfile } = useAppStore()
@@ -14,7 +15,7 @@ function App() {
     useEffect(() => {
         const profilesObject = JSON.parse(localStorage.getItem("userProfiles") || "[]") as UserProfile[]
         profilesObject.forEach((profile) => {
-            addProfile(UserProfile.fromJSON(profile), false)
+            addProfile(UserProfile.fromJSON(profile, [["tasks", Task.prototype]]), false)
         })
     }, [])
 

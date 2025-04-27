@@ -6,14 +6,16 @@ export default class Task extends Serializable implements ITask {
     content: string;
     deadline: Date;
     completed: Boolean;
+    notes: String[];
 
-    constructor(title: string, content: string, deadline: Date, completed: Boolean = false) {
+    constructor(title: string, content: string, deadline: Date, completed: Boolean = false, notes: String[] = []) {
         super()
 
         this.title = title
         this.content = content
         this.deadline = deadline
         this.completed = completed
+        this.notes = notes
     }
 
     setTitle(title: string) : Task {
@@ -36,6 +38,11 @@ export default class Task extends Serializable implements ITask {
         return this
     }
 
+    addNote(note: String) : Task {
+        this.notes.push(note)
+        return this
+    }
+
     update(task: Task | Partial<Task>) : Task {
         this.setTitle(task.title || this.title)
         this.setContent(task.content || this.content)
@@ -44,23 +51,23 @@ export default class Task extends Serializable implements ITask {
         return this
     }
 
-    static isDueToday(task : Task) : Boolean {
-        let d = new Date(task.deadline)
+    isDueToday() : Boolean {
+        let d = new Date(this.deadline)
         d.setHours(0, 0, 0, 0)
         let t = new Date()
         t.setHours(0, 0, 0, 0)
 
-        return !task.completed && d <= t
+        return !this.completed && d <= t
     }
 
-    static isDueThisWeek(task : Task) : Boolean {
-        let d = new Date(task.deadline)
+    isDueThisWeek() : Boolean {
+        let d = new Date(this.deadline)
         d.setHours(0, 0, 0, 0)
         let t = new Date()
         t.setHours(0, 0, 0, 0)
         t.setDate(t.getDate()+7)
 
-        return !task.completed && d <= t
+        return !this.completed && d <= t
     }
 
 }
