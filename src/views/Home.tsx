@@ -2,19 +2,12 @@
 import { Link } from "react-router";
 import { Button } from "./ui-components";
 import { useAppStore } from "../AppStore";
-import Task from "../controllers/Task";
 import { formatDistanceToNow } from "date-fns";
 import { pl } from "date-fns/locale";
 import { LightButton } from "./ui-components/LightButton";
 
 export function Home() {
-    const { activeProfile, updateActiveProfile, setActiveProfile } = useAppStore()
-
-    const addTask = () => {
-        let d = new Date()
-        d.setDate(d.getDate()+2)
-        updateActiveProfile(activeProfile!.addTask(new Task("Test", "testowy", d)))
-    }
+    const { activeProfile, updateActiveProfile, setActiveProfile, setActiveEditTask, removeProfile } = useAppStore()
 
     return (<>
         <div className="shadow-md bg-white p-2.5 flex justify-between items-center">
@@ -22,10 +15,10 @@ export function Home() {
             <Link to="/" onClick={() => { setActiveProfile(null) }}><Button>Wyloguj</Button></Link>
         </div>
         <div className="p-4">
-            <p className="text-2xl">Wszystkie taski:</p>
-            <div className="flex gap-4 overflow-auto flex-wrap w-full my-4">
+            <p className="text-2xl justify-center flex md:justify-normal">Wszystkie taski:</p>
+            <div className="flex gap-4 overflow-auto flex-wrap w-full my-4 justify-center md:justify-normal">
                 {activeProfile?.tasks.map((task, idx) => {
-                    return <div key={idx} className="shadow-sm border border-gray-200 w-64 p-2">
+                    return <div key={idx} className="shadow-sm border border-gray-200 w-96 p-2">
                         <div className="flex flex-col justify-between h-full">
                             <div>
                                 <div className="flex justify-between items-center">
@@ -39,10 +32,13 @@ export function Home() {
                             
                             <div>
                                 <div className="w-full bg-gray-200 h-0.5 my-2"></div>
-                                <div className="flex">
+                                <div className="flex gap-2">
                                     <LightButton onClick={() => {updateActiveProfile(activeProfile!.updateTask(task, {completed:true}))}}>
                                         Zakończ
                                     </LightButton>
+                                    <Link to="/createtask" onClick={() => {setActiveEditTask(task)}}><LightButton>
+                                        Edytuj
+                                    </LightButton></Link>
                                 </div>
                             </div>
                         </div>
@@ -64,8 +60,9 @@ export function Home() {
                 })}
             </div> */}
 
-            <div className="flex gap-3">
-                <Button onClick={() => {addTask()}}>Dodaj task</Button>
+            <div className="flex gap-3 justify-center md:justify-normal">
+                <Link to="/createtask"><Button>Dodaj task</Button></Link>
+                <Link to="/" onClick={() => { removeProfile(activeProfile!); setActiveProfile(null); }}><Button className="text-red-500">Usuń profil</Button></Link>
                 {/* <Button onClick={() => {updateActiveProfile(activeProfile!.removeTask(activeProfile!.tasks[activeProfile!.tasks.length-1]))}}>Usuń ostatni task</Button>
                 <Button onClick={() => {updateActiveProfile(activeProfile!.updateTask(activeProfile!.tasks[activeProfile!.tasks.length-1], activeProfile!.tasks[activeProfile!.tasks.length-1].addNote("TestNote")))}}>Dodaj notatke</Button> */}
             </div>

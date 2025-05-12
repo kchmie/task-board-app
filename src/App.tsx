@@ -8,6 +8,7 @@ import UserProfile from './controllers/UserProfile'
 import { EnsureActiveProfile } from './views/middleware/EnsureActiveProfile'
 import { ProfileCreation } from './views/ProfileCreation'
 import Task from './controllers/Task'
+import { TaskCreation } from './views/TaskCreation'
 
 function App() {
     const { addProfile } = useAppStore()
@@ -25,6 +26,7 @@ function App() {
                 {/* Middleware to ensure the user has chosen a profile */}
                 <Route element={<EnsureActiveProfile />}>
                     <Route path="/home" element={<Home />} />
+                    <Route path="/createtask" element={<TaskCreation />} />
                 </Route>
                 <Route path="/" element={<ProfileSelection />} />
                 <Route path="/createprofile" element={<ProfileCreation />} />

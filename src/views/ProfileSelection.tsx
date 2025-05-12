@@ -1,13 +1,9 @@
 import { Link } from "react-router";
-import { CenterPanel, ProfileAvatarBig, Button } from "./ui-components";
+import { CenterPanel, ProfileAvatarBig } from "./ui-components";
 import { useAppStore } from "../AppStore";
 
 export function ProfileSelection() {
-    const { userProfiles, removeProfile, setActiveProfile } = useAppStore()
-
-    const removeLastProfile = () => {
-        removeProfile(userProfiles[userProfiles.length - 1])
-    }
+    const { userProfiles, setActiveProfile } = useAppStore()
 
     return (
         <CenterPanel>
@@ -19,7 +15,6 @@ export function ProfileSelection() {
                 <Link to="/createprofile"><ProfileAvatarBig add/></Link>
                 
             </div>
-            <Button onClick={removeLastProfile}>Usuń ostatni profil</Button>
         </CenterPanel>
     )
 }

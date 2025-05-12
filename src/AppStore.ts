@@ -1,10 +1,12 @@
 import { create } from 'zustand'
 import IAppState from './models/AppState'
 import UserProfile from './controllers/UserProfile'
+import Task from './controllers/Task'
 
 export const useAppStore = create<IAppState>()((set, get) => ({
     userProfiles: [],
     activeProfile: null,
+    activeEditTask: null,
     addProfile: (profile, save = true) => {
         set((state) => ({
             userProfiles: [...state.userProfiles, profile]
@@ -27,6 +29,11 @@ export const useAppStore = create<IAppState>()((set, get) => ({
             activeProfile: profile
         }))
         syncProfileLocalStorage(get().userProfiles)
+    },
+    setActiveEditTask: (task: Task | null) =>  {
+        set((_) => ({
+            activeEditTask: task
+        }))
     }
 }))
 

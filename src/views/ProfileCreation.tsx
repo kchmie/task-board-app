@@ -24,7 +24,7 @@ export function ProfileCreation() {
             <p className="text-3xl">Nazwa profilu</p>
             <ProfileAvatarBig name={profileName}></ProfileAvatarBig>
             <TextInput onChange={(e: any) => {setProfileName(e.target.value); setErrorMessage("")}} placeholder="Nazwa profilu"></TextInput>
-            <p className="text-red-500 font-bold h-5">{errorMessage !== "" && errorMessage}</p>
+             <p className="text-red-500 font-semibold h-5">{errorMessage !== "" && errorMessage}</p>
             <div className="flex gap-2 w-full justify-center">
                 <Link to="/"><Button>Wróć</Button></Link>
                 <Link to="/" onClick={addNewProfile}><Button>Dodaj profil</Button></Link>
