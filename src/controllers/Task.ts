@@ -7,8 +7,23 @@ export default class Task extends Serializable implements ITask {
     deadline: Date;
     completed: Boolean;
     notes: String[];
+    category: String[];
 
-    constructor(title: string, content: string, deadline: Date, completed: Boolean = false, notes: String[] = []) {
+    static categories = [
+        { name: "Brak", icon: "" },
+        { name: "Dom", icon: "🏠" },
+        { name: "Praca", icon: "💼" },
+        { name: "Nauka", icon: "🎓" },
+        { name: "Zdrowie", icon: "💪" },
+        { name: "Lifestyle", icon: "🧘" },
+        { name: "Relacje", icon: "🧑‍🤝‍🧑" },
+        { name: "Hobby", icon: "🎨" },
+        { name: "Sprawy", icon: "🚗" },
+        { name: "Podróże", icon: "🌍" },
+        { name: "Zakupy", icon: "🛒" },
+    ];
+
+    constructor(title: string, content: string, deadline: Date, category: String[] = ["Brak", ""], completed: Boolean = false, notes: String[] = []) {
         super()
 
         this.title = title
@@ -16,6 +31,7 @@ export default class Task extends Serializable implements ITask {
         this.deadline = deadline
         this.completed = completed
         this.notes = notes
+        this.category = category
     }
 
     setTitle(title: string) : Task {
@@ -38,6 +54,11 @@ export default class Task extends Serializable implements ITask {
         return this
     }
 
+    setCategory(category: String[]) : Task {
+        this.category = category
+        return this
+    }
+
     addNote(note: String) : Task {
         this.notes.push(note)
         return this
@@ -48,6 +69,7 @@ export default class Task extends Serializable implements ITask {
         this.setContent(task.content || this.content)
         this.setDeadline(task.deadline || this.deadline)
         this.setCompleted(task.completed || this.completed)
+        this.setCategory(task.category || this.category)
         return this
     }
 

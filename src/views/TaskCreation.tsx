@@ -16,6 +16,7 @@ export function TaskCreation(_: any) {
     let taskNameInput = useRef<HTMLInputElement>(null)
     let taskDescInput = useRef<HTMLInputElement>(null)
     let taskDeadInput = useRef<HTMLInputElement>(null)
+    let taskCateInput = useRef<HTMLSelectElement>(null)
 
     const { activeProfile, updateActiveProfile, activeEditTask, setActiveEditTask } = useAppStore()
 
@@ -24,6 +25,7 @@ export function TaskCreation(_: any) {
             taskNameInput.current!.value = activeEditTask.title
             taskDescInput.current!.value = activeEditTask.content
             taskDeadInput.current!.value = toLocalISOString(new Date(activeEditTask.deadline)).split(".")[0]
+            taskCateInput.current!.value = activeEditTask.category.join(".")
         }
     }, [])
 
@@ -31,6 +33,7 @@ export function TaskCreation(_: any) {
         let taskName = taskNameInput.current!.value
         let taskDesc = taskDescInput.current!.value
         let taskDead = new Date(taskDeadInput.current!.value)
+        let taskCate = taskCateInput.current!.value.split(".")
 
         if (taskName === "") {
             e.preventDefault()
@@ -50,9 +53,9 @@ export function TaskCreation(_: any) {
         }
 
         if (activeEditTask !== undefined && activeEditTask !== null) {
-            updateActiveProfile(activeProfile!.updateTask(activeEditTask, activeEditTask.setTitle(taskName).setContent(taskDesc).setDeadline(taskDead)))
+            updateActiveProfile(activeProfile!.updateTask(activeEditTask, activeEditTask.setTitle(taskName).setContent(taskDesc).setDeadline(taskDead).setCategory(taskCate)))
         } else {
-            updateActiveProfile(activeProfile!.addTask(new Task(taskName, taskDesc, taskDead)))
+            updateActiveProfile(activeProfile!.addTask(new Task(taskName, taskDesc, taskDead, taskCate)))
         }
 
 
@@ -69,7 +72,14 @@ export function TaskCreation(_: any) {
                 <TextInput ref={taskDescInput} placeholder="Nazwa zadania" className="sm:w-2/5 w-4/5" />
 
                 <p className="text-3xl">Deadline</p>
-                <input ref={taskDeadInput} type="datetime-local" id="birthday" name="birthday" className="sm:w-2/5 w-4/5 py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500" />
+                <input ref={taskDeadInput} type="datetime-local" className="sm:w-2/5 w-4/5 py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500" />
+
+                <p className="text-3xl">Kategoria</p>
+                <select ref={taskCateInput} className="sm:w-2/5 w-4/5 py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500">
+                    {Task.categories.map((category, idx) => {
+                        return <option key={idx} value={category.icon + "." + category.name}>{category.icon + " " + category.name}</option>
+                    })}
+                </select>
 
                 <p className="text-red-500 font-semibold h-5">{errorMessage !== "" && errorMessage}</p>
 
@@ -77,6 +87,9 @@ export function TaskCreation(_: any) {
                     <Link to="/home" onClick={() => { setActiveEditTask(null) }}><Button>Wróć</Button></Link>
                     <Link to="/home" onClick={addOrUpdateTask}><Button>{activeEditTask !== undefined && activeEditTask !== null ? "Zapisz zadanie" : "Dodaj zadanie"}</Button></Link>
                 </div>
+                {
+                    (activeEditTask !== undefined && activeEditTask !== null) && <Link to="/home" onClick={() => { updateActiveProfile(activeProfile!.removeTask(activeEditTask)); setActiveEditTask(null); }}><Button className="text-red-500">Usuń zadanie</Button></Link>
+                }
             </CenterPanel>
         </>
     )

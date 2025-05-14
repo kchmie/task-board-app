@@ -15,14 +15,14 @@ export function Home() {
             <Link to="/" onClick={() => { setActiveProfile(null) }}><Button>Wyloguj</Button></Link>
         </div>
         <div className="p-4">
-            <p className="text-2xl justify-center flex md:justify-normal">Wszystkie taski:</p>
+            <p className="text-2xl justify-center flex md:justify-normal">Wszystkie zadania:</p>
             <div className="flex gap-4 overflow-auto flex-wrap w-full my-4 justify-center md:justify-normal">
                 {activeProfile?.tasks.map((task, idx) => {
                     return <div key={idx} className="shadow-sm border border-gray-200 w-96 p-2">
                         <div className="flex flex-col justify-between h-full">
                             <div>
                                 <div className="flex justify-between items-center">
-                                    <p className="text-xl">{task.title}</p> 
+                                    <p className="text-xl">{task.category[0]} {task.title}</p> 
                                     <p className="text-gray-500">koniec {formatDistanceToNow(new Date(task.deadline), {addSuffix: true, locale: pl})}</p>
                                 </div>
                                 {task.content}  
@@ -38,6 +38,9 @@ export function Home() {
                                     </LightButton>
                                     <Link to="/createtask" onClick={() => {setActiveEditTask(task)}}><LightButton>
                                         Edytuj
+                                    </LightButton></Link>
+                                    <Link to="/tasknotes" onClick={() => {setActiveEditTask(task)}}><LightButton>
+                                        Notatki ({task.notes.length})
                                     </LightButton></Link>
                                 </div>
                             </div>
@@ -61,7 +64,7 @@ export function Home() {
             </div> */}
 
             <div className="flex gap-3 justify-center md:justify-normal">
-                <Link to="/createtask"><Button>Dodaj task</Button></Link>
+                <Link to="/createtask"><Button>Dodaj zadanie</Button></Link>
                 <Link to="/" onClick={() => { removeProfile(activeProfile!); setActiveProfile(null); }}><Button className="text-red-500">Usuń profil</Button></Link>
                 {/* <Button onClick={() => {updateActiveProfile(activeProfile!.removeTask(activeProfile!.tasks[activeProfile!.tasks.length-1]))}}>Usuń ostatni task</Button>
                 <Button onClick={() => {updateActiveProfile(activeProfile!.updateTask(activeProfile!.tasks[activeProfile!.tasks.length-1], activeProfile!.tasks[activeProfile!.tasks.length-1].addNote("TestNote")))}}>Dodaj notatke</Button> */}
