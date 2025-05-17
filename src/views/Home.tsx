@@ -28,7 +28,7 @@ export function Home() {
             {/* <p className="text-2xl justify-center flex md:justify-normal">Wszystkie zadania:</p> */}
             <div className="flex gap-2 items-e">
                 <p className="text-l">Wyświetl zadania </p>
-                <select defaultValue={activeProfile!.filters[0]} onChange={updateTimeFilter} className="rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 text-l w-30 font-semibold">
+                <select defaultValue={activeProfile!.filters[0]} onChange={updateTimeFilter} className="rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 text-l w-32 font-semibold">
                     <option value="day">📆 Na dzisiaj</option>
                     <option value="week">📅 Na tydzień</option>
                     <option value="all">🖥️ Wszystkie</option>

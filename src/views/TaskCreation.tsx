@@ -40,7 +40,8 @@ export function TaskCreation(_: any) {
             setErrorMessage("Zadanie musi mieć podaną nazwę!")
             return
         }
-        if (taskDead === null) {
+
+        if (isNaN(taskDead.getTime())) {
             e.preventDefault()
             setErrorMessage("Zadanie musi mieć deadline!")
             return
