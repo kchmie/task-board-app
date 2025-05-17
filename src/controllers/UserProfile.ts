@@ -5,12 +5,14 @@ import Task from "./Task";
 export default class UserProfile extends Serializable implements IUserProfile {
     profileName: string;
     tasks: Task[];
+    filters: [string, string];
 
     constructor(profileName: string) {
         super()
 
         this.profileName = profileName
         this.tasks = []
+        this.filters = ["today", "all"]
     }
 
     addTask(task: Task) : UserProfile {
@@ -25,6 +27,11 @@ export default class UserProfile extends Serializable implements IUserProfile {
 
     updateTask(source: Task, update: Task | Partial<Task>) : UserProfile {
         this.tasks.find((profileTask) => {return profileTask===source})?.update(update)
+        return this
+    }
+
+    updateFilters(timeFilter: string, groupFilter: string) : UserProfile {
+        this.filters = [timeFilter, groupFilter]
         return this
     }
 }

@@ -22,7 +22,8 @@
       "output": "dist-win"
     },
     "win": {
-      "target": "portable"
+      "target": "portable",
+      "icon": "src/assets/icon.ico"
     }
   },
   "dependencies": {

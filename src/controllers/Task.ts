@@ -10,7 +10,7 @@ export default class Task extends Serializable implements ITask {
     category: String[];
 
     static categories = [
-        { name: "Brak", icon: "" },
+        { name: "Brak", icon: "📝" },
         { name: "Dom", icon: "🏠" },
         { name: "Praca", icon: "💼" },
         { name: "Nauka", icon: "🎓" },
@@ -34,37 +34,37 @@ export default class Task extends Serializable implements ITask {
         this.category = category
     }
 
-    setTitle(title: string) : Task {
+    setTitle(title: string): Task {
         this.title = title
         return this
     }
 
-    setContent(content: string) : Task {
+    setContent(content: string): Task {
         this.content = content
         return this
     }
 
-    setDeadline(deadline: Date) : Task {
+    setDeadline(deadline: Date): Task {
         this.deadline = deadline
         return this
     }
 
-    setCompleted(completed: Boolean) : Task {
+    setCompleted(completed: Boolean): Task {
         this.completed = completed
         return this
     }
 
-    setCategory(category: String[]) : Task {
+    setCategory(category: String[]): Task {
         this.category = category
         return this
     }
 
-    addNote(note: String) : Task {
+    addNote(note: String): Task {
         this.notes.push(note)
         return this
     }
 
-    update(task: Task | Partial<Task>) : Task {
+    update(task: Task | Partial<Task>): Task {
         this.setTitle(task.title || this.title)
         this.setContent(task.content || this.content)
         this.setDeadline(task.deadline || this.deadline)
@@ -73,23 +73,39 @@ export default class Task extends Serializable implements ITask {
         return this
     }
 
-    isDueToday() : Boolean {
+    isDueToday(): Boolean {
         let d = new Date(this.deadline)
         d.setHours(0, 0, 0, 0)
-        let t = new Date()
-        t.setHours(0, 0, 0, 0)
 
-        return !this.completed && d <= t
+        let now = new Date()
+        now.setHours(0, 0, 0, 0)
+
+        let tomorrow = new Date()
+        tomorrow.setHours(0, 0, 0, 0)
+        tomorrow.setDate(tomorrow.getDate() + 1)
+
+        return !this.completed && d <= now && d < tomorrow;
     }
 
-    isDueThisWeek() : Boolean {
+    isDueThisWeek(): Boolean {
         let d = new Date(this.deadline)
         d.setHours(0, 0, 0, 0)
-        let t = new Date()
-        t.setHours(0, 0, 0, 0)
-        t.setDate(t.getDate()+7)
 
-        return !this.completed && d <= t
+        let now = new Date()
+        now.setHours(0, 0, 0, 0)
+
+        let nextWeek = new Date()
+        nextWeek.setHours(0, 0, 0, 0)
+        nextWeek.setDate(nextWeek.getDate() + 7)
+
+
+        return !this.completed && d <= nextWeek;
     }
 
+    isOverdue(): Boolean {
+        let deadline = new Date(this.deadline)
+        let now = new Date()
+
+        return !this.completed && deadline < now;
+    }
 }

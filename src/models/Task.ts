@@ -4,5 +4,6 @@ export default interface ITask {
     content: string,
     deadline: Date,
     completed: Boolean,
-    notes: String[]
+    notes: String[],
+    category: String[]
 }

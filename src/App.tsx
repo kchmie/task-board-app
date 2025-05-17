@@ -11,6 +11,8 @@ import Task from './controllers/Task'
 import { TaskCreation } from './views/TaskCreation'
 import { TaskNotes } from './views/TaskNotes'
 
+import icon from "./assets/icon.ico"
+
 function App() {
     const { addProfile } = useAppStore()
 
@@ -19,6 +21,19 @@ function App() {
         profilesObject.forEach((profile) => {
             addProfile(UserProfile.fromJSON(profile, [["tasks", Task.prototype]]), false)
         })
+    }, [])
+
+    useEffect(() => {
+        let link: HTMLLinkElement = document.querySelector("link[rel~='icon']") as HTMLLinkElement;
+
+        if (!link) {
+            link = document.createElement('link');
+            document.getElementsByTagName('head')[0].appendChild(link);
+        }
+
+        link.type = 'image/x-icon';
+        link.rel = 'shortcut icon';
+        link.href = icon;
     }, [])
 
     return (
